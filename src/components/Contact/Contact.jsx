@@ -1,26 +1,30 @@
-/* eslint-disable react/prop-types */
-import css from "./Contact.module.css";
 import { useDispatch } from "react-redux";
-import { deleteContact } from "../../redux/contactsSlice";
+import css from "./Contact.module.css";
+import { deleteContact } from "../../redux/contactsOps";
 
-// ../../redux/contactsSlice
-
-export default function Contact({ id, name, phone }) {
+const Contact = ({ name, number, id }) => {
   const dispatch = useDispatch();
 
-  const handleDelete = () => {
-    dispatch(deleteContact(id));
+  const onDeleteContact = () => {
+    const contactId = id;
+    dispatch(deleteContact(contactId));
   };
 
   return (
-    <>
-      <div className={css.contactInfo}>
-        <p className={css.contactName}>{name}</p>
-        <p className={css.contactNumber}>{phone}</p>
+    <div className={css.contactItem}>
+      <div>
+        <p className={css.text}>👤{name}</p>
+        <p className={css.text}>📞{number}</p>
       </div>
-      <button type="button" className={css.deleteBtn} onClick={handleDelete}>
+      <button
+        type="button"
+        className={css.contactBtn}
+        onClick={onDeleteContact}
+      >
         Delete
       </button>
-    </>
+    </div>
   );
-}
+};
+
+export default Contact;
